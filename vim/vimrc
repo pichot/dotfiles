@@ -1,0 +1,34 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+source ~/.vim/bundles.vim
+
+" Enable file type detection and language-specific indent files
+filetype plugin indent on
+
+" Enable backgrounding buffers
+set hidden
+
+" Remember more commands and search history
+set history=1000
+
+" Make tab completion for files/buffers act like bash
+set wildmenu
+
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+
+" Autocommands on load
+autocmd vimenter * NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Keyboard Bindings
+map <C-n> :NERDTreeToggle<CR>
+
+syntax enable
+set number
+set background=dark
+colorscheme solarized
+set guifont=Inconsolata-dz\ For\ Powerline:h16
