@@ -11,24 +11,8 @@ ZSH_THEME="pichot"
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
 # Comment this out to disable weekly auto-update checks
 DISABLE_AUTO_UPDATE="false"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
 
 plugins=(git bundler rails)
 source $ZSH/oh-my-zsh.sh
@@ -40,6 +24,9 @@ export RUBY_GC_MALLOC_LIMIT=60000000
 export RUBY_FREE_MIN=200000
 export CFLAGS="-march=native -O2 -fomit-frame-pointer -pipe"
 
+# Pythonbrew
+[[ -s $HOME/.pythonbrew/etc/bashrc ]] && source $HOME/.pythonbrew/etc/bashrc
+
 # LAMP
 alias restart-apache="sudo apachectl restart"
 alias restart-mysql="mysql.server restart"
@@ -50,6 +37,7 @@ alias stop-postgres="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 
 # Helper aliases
 alias cppwd="pwd | pbcopy"
+alias rake="noglob rake"
 
 # Newline issues on prompt fix
 unsetopt PROMPTCR
