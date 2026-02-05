@@ -1,0 +1,8 @@
+[data]
+{{- if eq .chezmoi.os "darwin" }}
+    os = "macos"
+    plugin_dir = "/opt/homebrew/share"
+{{- else if eq .chezmoi.os "linux" }}
+    os = "linux"
+    plugin_dir = "/usr/share/zsh/plugins"
+{{- end }}

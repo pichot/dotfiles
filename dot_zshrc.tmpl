@@ -1,0 +1,139 @@
+# =============================================================================
+# ZSH Configuration (managed by chezmoi)
+# =============================================================================
+
+# Secrets
+[[ -f ~/.secrets.zsh ]] && source ~/.secrets.zsh
+
+# -----------------------------------------------------------------------------
+# Platform-Specific Setup
+# -----------------------------------------------------------------------------
+{{- if eq .os "macos" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+alias cppwd="pwd | pbcopy"
+{{- else if eq .os "linux" }}
+alias cppwd="pwd | xclip -selection clipboard"
+{{- end }}
+
+# -----------------------------------------------------------------------------
+# Path
+# -----------------------------------------------------------------------------
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:./bin:$PATH"
+
+# -----------------------------------------------------------------------------
+# Environment
+# -----------------------------------------------------------------------------
+export EDITOR="vim"
+export LANG=en_US.UTF-8
+
+# -----------------------------------------------------------------------------
+# History
+# -----------------------------------------------------------------------------
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
+
+# -----------------------------------------------------------------------------
+# Options
+# -----------------------------------------------------------------------------
+setopt AUTO_CD INTERACTIVE_COMMENTS
+unsetopt PROMPT_CR
+
+# -----------------------------------------------------------------------------
+# Completion
+# -----------------------------------------------------------------------------
+{{- if eq .os "macos" }}
+[[ -d /opt/homebrew/share/zsh-completions ]] && FPATH=/opt/homebrew/share/zsh-completions:$FPATH
+{{- else }}
+[[ -d /usr/share/zsh/site-functions ]] && FPATH=/usr/share/zsh/site-functions:$FPATH
+{{- end }}
+
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+# -----------------------------------------------------------------------------
+# Lazy Loading (faster startup)
+# -----------------------------------------------------------------------------
+if command -v rbenv &>/dev/null; then
+  rbenv() {
+    unfunction rbenv
+    eval "$(command rbenv init -)"
+    rbenv "$@"
+  }
+fi
+
+if command -v pyenv &>/dev/null; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  pyenv() {
+    unfunction pyenv
+    eval "$(command pyenv init -)"
+    eval "$(command pyenv virtualenv-init -)" 2>/dev/null
+    pyenv "$@"
+  }
+  python() {
+    unfunction python pyenv 2>/dev/null
+    eval "$(command pyenv init -)"
+    python "$@"
+  }
+fi
+
+# -----------------------------------------------------------------------------
+# Plugins
+# -----------------------------------------------------------------------------
+# Autosuggestions
+[[ -f "{{ .plugin_dir }}/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && \
+  source "{{ .plugin_dir }}/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Syntax highlighting (must be before history-substring-search)
+[[ -f "{{ .plugin_dir }}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && \
+  source "{{ .plugin_dir }}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+
+# History substring search
+[[ -f "{{ .plugin_dir }}/zsh-history-substring-search/zsh-history-substring-search.zsh" ]] && \
+  source "{{ .plugin_dir }}/zsh-history-substring-search/zsh-history-substring-search.zsh"
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# -----------------------------------------------------------------------------
+# Tools
+# -----------------------------------------------------------------------------
+# fzf
+command -v fzf &>/dev/null && source <(fzf --zsh)
+
+# zoxide
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+# -----------------------------------------------------------------------------
+# Prompt
+# -----------------------------------------------------------------------------
+eval "$(starship init zsh)"
+
+# -----------------------------------------------------------------------------
+# Aliases
+# -----------------------------------------------------------------------------
+alias ll="ls -lah"
+alias la="ls -A"
+alias l="ls -CF"
+alias zshrc="${EDITOR} ~/.zshrc"
+alias reload="source ~/.zshrc"
+alias listening_ports="sudo lsof -iTCP -sTCP:LISTEN -n -P"
+alias dotfiles="cd \$(chezmoi source-path)"
+
+# Git
+alias g="git" gst="git status" ga="git add" gc="git commit"
+alias gp="git push" gl="git pull" gd="git diff"
+alias gco="git checkout" gb="git branch"
+alias glog="git log --oneline --graph --decorate"
+
+# -----------------------------------------------------------------------------
+# Local overrides (machine-specific, not in chezmoi)
+# -----------------------------------------------------------------------------
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
