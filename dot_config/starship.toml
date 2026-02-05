@@ -65,8 +65,8 @@ Pop = ""
 [directory]
 style = "bg:color_orange fg:color_fg0"
 format = "[ $path ]($style)"
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 0
+truncate_to_repo = false
 
 [directory.substitutions]
 "Documents" = "󰈙 "
