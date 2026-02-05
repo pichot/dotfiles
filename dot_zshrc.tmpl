@@ -137,3 +137,12 @@ alias glog="git log --oneline --graph --decorate"
 # Local overrides (machine-specific, not in chezmoi)
 # -----------------------------------------------------------------------------
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# -----------------------------------------------------------------------------
+# System Info Display (at end to avoid being cleared by other init)
+# -----------------------------------------------------------------------------
+{{- if eq .os "macos" }}
+if [[ -o interactive ]] && [[ -z "$VSCODE_RESOLVING_ENVIRONMENT" ]]; then
+    command -v fastfetch &>/dev/null && fastfetch
+fi
+{{- end }}
