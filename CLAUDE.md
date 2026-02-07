@@ -43,6 +43,7 @@ Common patterns:
 - `dot_config/starship.toml` - Prompt configuration
 - `dot_config/fastfetch/config.jsonc.tmpl` - System info display (runs on terminal startup)
 - `dot_config/ghostty/config` - Terminal settings
+- `dot_claude/` - Claude Code settings (settings.json, CLAUDE.md, statusline script)
 
 ## Notes
 

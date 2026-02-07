@@ -1,0 +1,1 @@
+- Always use `pnpm` for javascript package management

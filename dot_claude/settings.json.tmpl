@@ -1,0 +1,29 @@
+{
+  "respectGitignore": false,
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(ls:*)",
+      "Bash(pwd)",
+      "Bash(tree:*)",
+      "Bash(grep:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(git:*)",
+      "Bash(echo:*)",
+      "WebSearch"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "/bin/bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "compound-engineering@every-marketplace": true
+  },
+  "alwaysThinkingEnabled": true,
+  "preferredNotifChannel": "terminal_bell"
+}
