@@ -63,6 +63,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 # Lazy Loading (faster startup)
 # -----------------------------------------------------------------------------
 if command -v rbenv &>/dev/null; then
+  export PATH="$HOME/.rbenv/shims:$PATH"
   rbenv() {
     unfunction rbenv
     eval "$(command rbenv init -)"
