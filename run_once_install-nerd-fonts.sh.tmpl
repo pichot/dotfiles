@@ -1,0 +1,27 @@
+#!/bin/bash
+# Install JetBrains Mono Nerd Font
+
+{{- if eq .os "macos" }}
+if ! ls ~/Library/Fonts/JetBrainsMonoNerdFont-Regular.ttf &>/dev/null; then
+  echo "Installing JetBrains Mono Nerd Font via Homebrew..."
+  brew install --cask font-jetbrains-mono-nerd-font
+else
+  echo "JetBrains Mono Nerd Font already installed."
+fi
+{{- else if eq .os "linux" }}
+FONT_DIR="$HOME/.local/share/fonts"
+if ! ls "$FONT_DIR"/JetBrainsMonoNerdFont-Regular.ttf &>/dev/null; then
+  echo "Installing JetBrains Mono Nerd Font..."
+  mkdir -p "$FONT_DIR"
+  TEMP_DIR=$(mktemp -d)
+  curl -fsSL -o "$TEMP_DIR/JetBrainsMono.zip" \
+    "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip"
+  unzip -q "$TEMP_DIR/JetBrainsMono.zip" -d "$TEMP_DIR/fonts"
+  cp "$TEMP_DIR/fonts/"*.ttf "$FONT_DIR/"
+  rm -rf "$TEMP_DIR"
+  fc-cache -f "$FONT_DIR"
+  echo "JetBrains Mono Nerd Font installed."
+else
+  echo "JetBrains Mono Nerd Font already installed."
+fi
+{{- end }}

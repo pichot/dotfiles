@@ -1,0 +1,20 @@
+#!/bin/bash
+# Symlink VS Code settings to the OS-specific location
+# settings.json hash: {{ include "dot_config/Code/User/settings.json" | sha256sum }}
+
+{{- if eq .os "macos" }}
+VSCODE_DIR="$HOME/Library/Application Support/Code/User"
+{{- else if eq .os "linux" }}
+# On Linux, chezmoi deploys directly to ~/.config/Code/User/ — nothing to do
+exit 0
+{{- end }}
+
+SOURCE="$HOME/.config/Code/User/settings.json"
+
+if [ -f "$SOURCE" ]; then
+  mkdir -p "$VSCODE_DIR"
+  # Remove existing file/symlink before creating new symlink
+  rm -f "$VSCODE_DIR/settings.json"
+  ln -s "$SOURCE" "$VSCODE_DIR/settings.json"
+  echo "Symlinked VS Code settings to $VSCODE_DIR/settings.json"
+fi

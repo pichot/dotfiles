@@ -6,8 +6,6 @@ $os\
 $directory\
 [](bg:color_yellow fg:color_orange)\
 [](fg:color_yellow bg:color_aqua)\
-$git_branch\
-$git_status\
 [](fg:color_aqua bg:color_blue)\
 $nodejs\
 $ruby\
@@ -17,6 +15,8 @@ $docker_context\
 $conda\
 $pixi\
 [](fg:color_bg3 bg:color_bg1)\
+$git_branch\
+$git_status\
 [ ](fg:color_bg1)\
 $line_break$character"""
 
@@ -39,28 +39,8 @@ disabled = false
 style = "bg:color_orange fg:color_fg0"
 
 [os.symbols]
-Windows = "󰍲"
-Ubuntu = "󰕈"
-SUSE = ""
-Raspbian = "󰐿"
-Mint = "󰣭"
 Macos = "󰀵"
-Manjaro = ""
-Linux = "󰌽"
-Gentoo = "󰣨"
-Fedora = "󰣛"
-Alpine = ""
-Amazon = ""
-Android = ""
-AOSC = ""
 Arch = "󰣇"
-Artix = "󰣇"
-EndeavourOS = ""
-CentOS = ""
-Debian = "󰣚"
-Redhat = "󱄛"
-RedHatEnterprise = "󱄛"
-Pop = ""
 
 [directory]
 style = "bg:color_orange fg:color_fg0"
@@ -77,12 +57,12 @@ truncate_to_repo = false
 
 [git_branch]
 symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
+style = "bg:color_bg1"
+format = '[[ $symbol $branch ](fg:color_fg0 bg:color_bg1)]($style)'
 
 [git_status]
-style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
+style = "bg:color_bg1"
+format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_bg1)]($style)'
 
 [nodejs]
 symbol = ""
