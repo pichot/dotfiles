@@ -17,8 +17,31 @@ case "$MODEL" in
     "Claude Haiku 3.5") MODEL="Haiku" ;;
 esac
 
-# Build output
-OUTPUT="$MODEL | ctx ${CTX_REMAINING}%"
+# Extract current working directory from JSON input
+CWD=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
+
+# Get git branch (skip optional locks for safety)
+GIT_BRANCH=""
+if [ -d "$CWD/.git" ]; then
+    GIT_BRANCH=$(cd "$CWD" && git --no-optional-locks branch --show-current 2>/dev/null)
+fi
+
+# Build output with pwd and git branch
+OUTPUT="$MODEL"
+
+# Add directory (show basename only to keep it short)
+if [ -n "$CWD" ]; then
+    DIR_NAME=$(basename "$CWD")
+    OUTPUT="$OUTPUT | $DIR_NAME"
+fi
+
+# Add git branch if available
+if [ -n "$GIT_BRANCH" ]; then
+    OUTPUT="$OUTPUT | $GIT_BRANCH"
+fi
+
+# Add context info
+OUTPUT="$OUTPUT | ctx ${CTX_REMAINING}%"
 
 # Add quota if available
 if [ -n "$QUOTA_USED" ] && [ "$QUOTA_USED" != "null" ]; then

@@ -1,80 +1,80 @@
 {
-  "alwaysThinkingEnabled": true,
-  "enabledPlugins": {
-    "compound-engineering@every-marketplace": true
+  "respectGitignore": false,
+  "permissions": {
+    "defaultMode": "bypassPermissions"
   },
   "hooks": {
     "Notification": [
       {
+        "matcher": "*",
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
-        ],
-        "matcher": "*"
+        ]
       }
     ],
     "PermissionRequest": [
       {
+        "matcher": "*",
         "hooks": [
           {
+            "type": "command",
             "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "timeout": 86400,
-            "type": "command"
+            "timeout": 86400
           }
-        ],
-        "matcher": "*"
+        ]
       }
     ],
     "PostToolUse": [
       {
+        "matcher": "*",
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
-        ],
-        "matcher": "*"
+        ]
       }
     ],
     "PreCompact": [
       {
+        "matcher": "auto",
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
-        ],
-        "matcher": "auto"
+        ]
       },
       {
+        "matcher": "manual",
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
-        ],
-        "matcher": "manual"
+        ]
       }
     ],
     "PreToolUse": [
       {
+        "matcher": "*",
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
-        ],
-        "matcher": "*"
+        ]
       }
     ],
     "SessionEnd": [
       {
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
         ]
       }
@@ -83,8 +83,8 @@
       {
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
         ]
       }
@@ -93,8 +93,8 @@
       {
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
         ]
       }
@@ -103,8 +103,8 @@
       {
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
         ]
       }
@@ -113,20 +113,23 @@
       {
         "hooks": [
           {
-            "command": "python3 ~/.claude/hooks/claude-island-state.py",
-            "type": "command"
+            "type": "command",
+            "command": "python3 ~/.claude/hooks/claude-island-state.py"
           }
         ]
       }
     ]
   },
-  "permissions": {
-    "defaultMode": "bypassPermissions"
-  },
-  "preferredNotifChannel": "terminal_bell",
-  "respectGitignore": false,
   "statusLine": {
-    "command": "/bin/bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh",
-    "type": "command"
-  }
+    "type": "command",
+    "command": "/bin/bash {{ .chezmoi.homeDir }}/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "compound-engineering@every-marketplace": true,
+    "frontend-design@claude-plugins-official": true,
+    "Notion@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "preferredNotifChannel": "terminal_bell"
 }

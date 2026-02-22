@@ -129,6 +129,9 @@ alias reload="source ~/.zshrc"
 alias listening_ports="sudo lsof -iTCP -sTCP:LISTEN -n -P"
 alias dotfiles="cd \$(chezmoi source-path)"
 
+# OpenClaw
+alias keating="ssh -t openclaw 'export PATH=\$HOME/.npm-global/bin:\$PATH && openclaw tui'"
+
 # Git
 alias g="git" gst="git status" ga="git add" gc="git commit"
 alias gp="git push" gl="git pull" gd="git diff"

@@ -87,11 +87,12 @@
     "anthropic.claude-code"
   ],
   "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "claudeCode.useTerminal": true,
   "claudeCode.environmentVariables": [],
   "python.analysis.typeCheckingMode": "standard",
   "workbench.editorAssociations": {
     "*.copilotmd": "vscode.markdown.preview.editor",
     "file:/**/*.parquet": "jupyter-data-wrangler"
-  }
+  },
+  "chat.viewSessions.orientation": "stacked",
+  "claudeCode.preferredLocation": "panel"
 }
