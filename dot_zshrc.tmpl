@@ -11,6 +11,9 @@
 {{- if eq .os "macos" }}
 eval "$(/opt/homebrew/bin/brew shellenv)"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
+export PATH="$PATH:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin"
 alias cppwd="pwd | pbcopy"
 {{- else if eq .os "linux" }}
 alias cppwd="pwd | xclip -selection clipboard"
@@ -24,9 +27,18 @@ export PATH="$HOME/.local/bin:$HOME/.cargo/bin:./bin:$PATH"
 # -----------------------------------------------------------------------------
 # Environment
 # -----------------------------------------------------------------------------
-export EDITOR="vim"
+if command -v zed &>/dev/null; then
+  export EDITOR="zed --wait"
+else
+  export EDITOR="vim"
+fi
 export LANG=en_US.UTF-8
 export HOMEBREW_NO_ENV_HINTS=1
+
+{{- if eq .os "macos" }}
+# LM Studio CLI
+[[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$PATH:$HOME/.lmstudio/bin"
+{{- end }}
 
 # -----------------------------------------------------------------------------
 # History
@@ -113,6 +125,9 @@ command -v fzf &>/dev/null && source <(fzf --zsh)
 # zoxide
 command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
 
+# CF CLI completions
+[[ -f "$HOME/.config/cf/completions/_cf.zsh" ]] && source "$HOME/.config/cf/completions/_cf.zsh"
+
 # -----------------------------------------------------------------------------
 # Prompt
 # -----------------------------------------------------------------------------
@@ -131,6 +146,7 @@ alias dotfiles="cd \$(chezmoi source-path)"
 
 # OpenClaw
 alias keating="ssh -t openclaw 'export PATH=\$HOME/.npm-global/bin:\$PATH && openclaw tui'"
+alias keating-ui="$HOME/_code/keating/scripts/tunnel.sh"
 
 # Git
 alias g="git" gst="git status" ga="git add" gc="git commit"
