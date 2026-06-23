@@ -20,6 +20,13 @@ alias cppwd="pwd | xclip -selection clipboard"
 {{- end }}
 
 # -----------------------------------------------------------------------------
+# Mise (language version manager)
+# -----------------------------------------------------------------------------
+if command -v mise &>/dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
+# -----------------------------------------------------------------------------
 # Path
 # -----------------------------------------------------------------------------
 export PATH="$HOME/.local/bin:$HOME/.cargo/bin:./bin:$PATH"
@@ -70,34 +77,6 @@ else
   compinit -C
 fi
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
-# -----------------------------------------------------------------------------
-# Lazy Loading (faster startup)
-# -----------------------------------------------------------------------------
-if command -v rbenv &>/dev/null; then
-  export PATH="$HOME/.rbenv/shims:$PATH"
-  rbenv() {
-    unfunction rbenv
-    eval "$(command rbenv init -)"
-    rbenv "$@"
-  }
-fi
-
-if command -v pyenv &>/dev/null; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  pyenv() {
-    unfunction pyenv
-    eval "$(command pyenv init -)"
-    eval "$(command pyenv virtualenv-init -)" 2>/dev/null
-    pyenv "$@"
-  }
-  python() {
-    unfunction python pyenv 2>/dev/null
-    eval "$(command pyenv init -)"
-    python "$@"
-  }
-fi
 
 # -----------------------------------------------------------------------------
 # Plugins
